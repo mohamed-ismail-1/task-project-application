@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(
+origins = "https://task-project-application-1.onrender.com"
+)
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
 public class TaskController {

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(
+origins = "https://task-project-application-1.onrender.com"
+)
 @RequestMapping("/api/profile")
 @RequiredArgsConstructor
 public class ProfileController {

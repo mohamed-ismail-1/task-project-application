@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(
+origins = "https://task-project-application-1.onrender.com"
+)
 @RequestMapping("/api/dashboard")
 @RequiredArgsConstructor
 public class DashboardController {
