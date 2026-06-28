@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin(
 origins = "https://task-project-application-1.onrender.com"
 )
-@RequestMapping("/api/tasks")
+@RequestMapping("/tasks")
 @RequiredArgsConstructor
 public class TaskController {
     private final TaskService taskService;

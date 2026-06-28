@@ -13,7 +13,7 @@ import java.util.Map;
 @CrossOrigin(
 origins = "https://task-project-application-1.onrender.com"
 )
-@RequestMapping("/api/profile")
+@RequestMapping("/profile")
 @RequiredArgsConstructor
 public class ProfileController {
     private final ProfileService profileService;
