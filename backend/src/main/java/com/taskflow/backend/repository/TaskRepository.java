@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByUser(User user);
+    List<Task> findByUserAndDueDateBetween(User user, java.time.LocalDateTime start, java.time.LocalDateTime end);
     
     @Query("SELECT t FROM Task t WHERE t.user = :user AND " +
            "(:priority IS NULL OR t.priority = :priority) AND " +

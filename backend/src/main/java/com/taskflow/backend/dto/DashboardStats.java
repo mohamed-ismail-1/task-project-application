@@ -14,4 +14,6 @@ public class DashboardStats {
     private long completedTasks;
     private long pendingTasks;
     private long highPriorityTasks;
+    private long mediumPriorityTasks;
+    private long lowPriorityTasks;
 }

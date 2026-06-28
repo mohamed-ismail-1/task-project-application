@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import api from '../services/api';
 import { toast } from 'react-toastify';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Plus, X, CheckSquare, Square } from 'lucide-react';
 
 const TaskModal = ({ isOpen, onClose, onSuccess, task }) => {
   const [formData, setFormData] = useState({
@@ -10,8 +10,10 @@ const TaskModal = ({ isOpen, onClose, onSuccess, task }) => {
     description: '',
     priority: 'MEDIUM',
     status: 'PENDING',
-    dueDate: ''
+    dueDate: '',
+    subTasks: []
   });
+  const [newSubTask, setNewSubTask] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -21,18 +23,43 @@ const TaskModal = ({ isOpen, onClose, onSuccess, task }) => {
         description: task.description || '',
         priority: task.priority,
         status: task.status,
-        dueDate: task.dueDate ? task.dueDate.split('T')[0] : ''
+        dueDate: task.dueDate ? task.dueDate.split('T')[0] : '',
+        subTasks: task.subTasks || []
       });
+      setNewSubTask('');
     } else {
       setFormData({
         title: '',
         description: '',
         priority: 'MEDIUM',
         status: 'PENDING',
-        dueDate: ''
+        dueDate: '',
+        subTasks: []
       });
+      setNewSubTask('');
     }
   }, [task, isOpen]);
+
+  const handleAddSubTask = () => {
+    if (!newSubTask.trim()) return;
+    setFormData({
+      ...formData,
+      subTasks: [...formData.subTasks, { title: newSubTask.trim(), isCompleted: false }]
+    });
+    setNewSubTask('');
+  };
+
+  const handleRemoveSubTask = (index) => {
+    const updated = [...formData.subTasks];
+    updated.splice(index, 1);
+    setFormData({ ...formData, subTasks: updated });
+  };
+
+  const handleToggleSubTask = (index) => {
+    const updated = [...formData.subTasks];
+    updated[index].isCompleted = !updated[index].isCompleted;
+    setFormData({ ...formData, subTasks: updated });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,6 +154,41 @@ const TaskModal = ({ isOpen, onClose, onSuccess, task }) => {
               value={formData.dueDate}
               onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
             />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label className="text-muted small fw-bold">SUBTASKS</Form.Label>
+            <div className="d-flex gap-2 mb-2">
+              <Form.Control
+                type="text"
+                className="bg-transparent border-secondary text-white"
+                placeholder="Add a subtask..."
+                value={newSubTask}
+                onChange={(e) => setNewSubTask(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleAddSubTask();
+                  }
+                }}
+              />
+              <Button variant="outline-primary" onClick={handleAddSubTask}>
+                <Plus size={20} />
+              </Button>
+            </div>
+            <div className="d-flex flex-column gap-2 mt-2" style={{ maxHeight: '150px', overflowY: 'auto' }}>
+              {formData.subTasks.map((sub, idx) => (
+                <div key={idx} className="d-flex align-items-center justify-content-between bg-dark bg-opacity-50 p-2 rounded border border-secondary">
+                  <div className="d-flex align-items-center gap-2" style={{ cursor: 'pointer' }} onClick={() => handleToggleSubTask(idx)}>
+                    {sub.isCompleted ? <CheckSquare size={18} className="text-success" /> : <Square size={18} className="text-muted" />}
+                    <span className={sub.isCompleted ? 'text-decoration-line-through text-muted' : ''}>{sub.title}</span>
+                  </div>
+                  <Button variant="link" className="text-danger p-0" onClick={() => handleRemoveSubTask(idx)}>
+                    <X size={18} />
+                  </Button>
+                </div>
+              ))}
+            </div>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer className="border-secondary p-3">

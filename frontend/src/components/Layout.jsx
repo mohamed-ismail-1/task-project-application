@@ -9,7 +9,8 @@ import {
   Menu, 
   X, 
   Moon, 
-  Sun 
+  Sun,
+  Calendar as CalendarIcon
 } from 'lucide-react';
 
 const Layout = () => {
@@ -38,6 +39,7 @@ const Layout = () => {
   const navItems = [
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
     { name: 'Tasks', path: '/tasks', icon: SquareCheck },
+    { name: 'Calendar', path: '/calendar', icon: CalendarIcon },
     { name: 'Profile', path: '/profile', icon: UserIcon },
   ];
 

@@ -50,4 +50,15 @@ public class TaskController {
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/report")
+    public ResponseEntity<byte[]> getMonthlyReport(@RequestParam int year, @RequestParam int month) {
+        byte[] csv = taskService.generateMonthlyReport(year, month);
+        org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+        headers.set(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=tasks-report-" + year + "-" + month + ".csv");
+        headers.set(org.springframework.http.HttpHeaders.CONTENT_TYPE, "text/csv");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(csv);
+    }
 }

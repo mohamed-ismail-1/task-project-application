@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
 import Profile from './pages/Profile';
+import CalendarView from './pages/Calendar';
 
 import { useEffect } from 'react';
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
             <Route index element={<Dashboard />} />
             <Route path="tasks" element={<Tasks />} />
+            <Route path="calendar" element={<CalendarView />} />
             <Route path="profile" element={<Profile />} />
           </Route>
 

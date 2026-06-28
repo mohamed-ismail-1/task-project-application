@@ -21,4 +21,5 @@ public class TaskResponse {
     private LocalDateTime dueDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private java.util.List<SubTaskDto> subTasks;
 }

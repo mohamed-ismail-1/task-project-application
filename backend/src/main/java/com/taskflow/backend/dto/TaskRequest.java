@@ -21,4 +21,5 @@ public class TaskRequest {
     private Task.Priority priority;
     private Task.Status status;
     private LocalDateTime dueDate;
+    private java.util.List<SubTaskDto> subTasks;
 }

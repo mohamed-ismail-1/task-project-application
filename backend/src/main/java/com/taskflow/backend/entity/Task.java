@@ -46,6 +46,9 @@ public class Task {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<SubTask> subTasks = new java.util.ArrayList<>();
+
     public enum Priority {
         LOW, MEDIUM, HIGH
     }

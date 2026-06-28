@@ -9,13 +9,16 @@ import {
   Calendar
 } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
     totalTasks: 0,
     completedTasks: 0,
     pendingTasks: 0,
-    highPriorityTasks: 0
+    highPriorityTasks: 0,
+    mediumPriorityTasks: 0,
+    lowPriorityTasks: 0
   });
   const [loading, setLoading] = useState(true);
 
@@ -79,66 +82,71 @@ const Dashboard = () => {
       </div>
 
       <div className="row g-4">
-        <div className="col-lg-8">
+        <div className="col-lg-6">
           <div className="glass-card p-4 h-100">
-            <h5 className="fw-bold mb-4">Completion Progress</h5>
-            <div className="d-flex align-items-center gap-4 mb-4">
-              <div className="progress-circle" style={{ '--percent': completionRate }}>
-                <div className="progress-value">{completionRate}%</div>
-              </div>
-              <div>
-                <h4 className="fw-bold m-0">{completionRate}% of tasks finished</h4>
-                <p className="text-muted small m-0">Keep going! You're doing great today.</p>
-              </div>
+            <h5 className="fw-bold mb-4">Task Status Distribution</h5>
+            <div style={{ height: 300 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={[
+                      { name: 'Completed', value: stats.completedTasks },
+                      { name: 'Pending', value: stats.pendingTasks }
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={100}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    <Cell fill="var(--bs-success)" />
+                    <Cell fill="var(--bs-warning)" />
+                  </Pie>
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)', borderRadius: '8px' }} 
+                    itemStyle={{ color: 'var(--text-color)' }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
-            
-            <div className="progress-bar-container mt-5">
-              <div className="d-flex justify-content-between mb-2">
-                <span className="text-muted small">Efficiency Status</span>
-                <span className="text-primary small fw-bold">Active</span>
+            <div className="d-flex justify-content-center gap-4 mt-3">
+              <div className="d-flex align-items-center gap-2">
+                <div className="rounded-circle bg-success" style={{width: 12, height: 12}}></div>
+                <span className="small text-muted fw-bold">Completed</span>
               </div>
-              <div className="progress rounded-pill bg-secondary bg-opacity-10" style={{height: 12}}>
-                <div 
-                  className="progress-bar rounded-pill bg-primary progress-bar-animated" 
-                  style={{width: `${completionRate}%`}}
-                ></div>
+              <div className="d-flex align-items-center gap-2">
+                <div className="rounded-circle bg-warning" style={{width: 12, height: 12}}></div>
+                <span className="small text-muted fw-bold">Pending</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="col-lg-4">
+        <div className="col-lg-6">
           <div className="glass-card p-4 h-100">
-            <h5 className="fw-bold mb-4">Quick Insights</h5>
-            <ul className="list-unstyled">
-              <li className="mb-4 d-flex gap-3">
-                <div className="bg-success bg-opacity-10 p-2 rounded-circle h-fit">
-                  <CheckCircle size={18} className="text-success" />
-                </div>
-                <div>
-                  <p className="m-0 fw-bold small">Productivity Peak</p>
-                  <p className="m-0 text-muted smaller">You finish most tasks before 2 PM</p>
-                </div>
-              </li>
-              <li className="mb-4 d-flex gap-3">
-                <div className="bg-warning bg-opacity-10 p-2 rounded-circle h-fit">
-                  <Clock size={18} className="text-warning" />
-                </div>
-                <div>
-                  <p className="m-0 fw-bold small">Upcoming Deadlines</p>
-                  <p className="m-0 text-muted smaller">3 tasks due in next 24 hours</p>
-                </div>
-              </li>
-              <li className="d-flex gap-3">
-                <div className="bg-danger bg-opacity-10 p-2 rounded-circle h-fit">
-                  <CircleAlert size={18} className="text-danger" />
-                </div>
-                <div>
-                  <p className="m-0 fw-bold small">Priority Focus</p>
-                  <p className="m-0 text-muted smaller">Focus on High Priority tasks first</p>
-                </div>
-              </li>
-            </ul>
+            <h5 className="fw-bold mb-4">Tasks by Priority</h5>
+            <div style={{ height: 300 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={[
+                    { name: 'High', tasks: stats.highPriorityTasks },
+                    { name: 'Medium', tasks: stats.mediumPriorityTasks },
+                    { name: 'Low', tasks: stats.lowPriorityTasks }
+                  ]}
+                  margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" vertical={false} />
+                  <XAxis dataKey="name" stroke="var(--text-muted)" tickLine={false} axisLine={false} />
+                  <YAxis stroke="var(--text-muted)" tickLine={false} axisLine={false} />
+                  <Tooltip 
+                    cursor={{fill: 'rgba(99, 102, 241, 0.1)'}}
+                    contentStyle={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)', borderRadius: '8px' }} 
+                  />
+                  <Bar dataKey="tasks" fill="var(--primary-color)" radius={[4, 4, 0, 0]} barSize={40} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
       </div>
