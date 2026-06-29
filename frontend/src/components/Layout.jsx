@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { 
-  LayoutDashboard, 
-  SquareCheck, 
-  User as UserIcon, 
-  LogOut, 
-  Menu, 
-  X, 
-  Moon, 
+import {
+  LayoutDashboard,
+  SquareCheck,
+  User as UserIcon,
+  LogOut,
+  Menu,
+  X,
+  Moon,
   Sun,
   Calendar as CalendarIcon
 } from 'lucide-react';
@@ -74,9 +74,8 @@ const Layout = () => {
                   <li key={item.path} className="mb-2">
                     <Link
                       to={item.path}
-                      className={`nav-link-custom d-flex align-items-center gap-3 p-3 rounded-3 transition-all ${
-                        location.pathname === item.path ? 'active' : ''
-                      }`}
+                      className={`nav-link-custom d-flex align-items-center gap-3 p-3 rounded-3 transition-all ${location.pathname === item.path ? 'active' : ''
+                        }`}
                     >
                       <Icon size={20} />
                       <span>{item.name}</span>
@@ -88,7 +87,7 @@ const Layout = () => {
           </nav>
 
           <div className="mt-auto pt-4 border-top border-secondary">
-            <button 
+            <button
               onClick={toggleTheme}
               className="btn btn-outline-secondary w-100 mb-3 d-flex align-items-center justify-content-center gap-2 border-0"
             >
@@ -97,7 +96,7 @@ const Layout = () => {
             </button>
 
             <div className="d-flex align-items-center gap-3 mb-4 px-2">
-              <div className="avatar bg-primary rounded-circle d-flex align-items-center justify-content-center" style={{width: 40, height: 40}}>
+              <div className="avatar bg-primary rounded-circle d-flex align-items-center justify-content-center" style={{ width: 40, height: 40 }}>
                 {user?.fullName?.charAt(0).toUpperCase()}
               </div>
               <div className="overflow-hidden">
@@ -105,8 +104,8 @@ const Layout = () => {
                 <p className="m-0 text-muted small text-truncate">{user?.email}</p>
               </div>
             </div>
-            
-            <button 
+
+            <button
               onClick={handleLogout}
               className="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center gap-2"
             >
@@ -122,7 +121,8 @@ const Layout = () => {
         </main>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .sidebar {
           width: 280px;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
