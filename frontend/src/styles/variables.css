@@ -3,8 +3,8 @@
   --primary-hover: #4f46e5;
   --bg-dark: #0f172a;
   --bg-card: #1e293b;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
   --border-color: #334155;
   --success: #10b981;
   --warning: #f59e0b;
@@ -17,8 +17,8 @@ body.light-mode {
   --primary-hover: #4338ca;
   --bg-dark: #f8fafc;
   --bg-card: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
+  --text-main: #1e293b;
+  --text-muted: #475569;
   --border-color: #e2e8f0;
   --glass: rgba(255, 255, 255, 0.8);
 }
