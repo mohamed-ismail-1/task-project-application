@@ -31,6 +31,31 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Override Bootstrap's hardcoded text colors to respect our theme variables */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, label, li {
+  color: inherit;
+}
+
+.glass-card h1,
+.glass-card h2,
+.glass-card h3,
+.glass-card h4,
+.glass-card h5,
+.glass-card h6,
+.glass-card p,
+.glass-card span:not(.badge),
+.glass-card label {
+  color: var(--text-main);
+}
+
 .form-control,
 .form-select {
   color: var(--text-main) !important;
